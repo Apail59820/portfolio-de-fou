@@ -1,14 +1,12 @@
-"use client";
+import HeaderSection from "@/components/HeaderSection/HeaderSection";
+import ScrollFloat from "@/components/ScrollFloat/ScrollFloat";
 
 import styles from "./page.module.css";
-import Shuffle from "@/components/Shuffle/Shuffle";
-import { motion } from "motion/react";
 import LiquidEtherBg from "@/components/LiquidEtherBg/LiquidEtherBg";
-import CurvedLoop from "@/components/CurvedLoop/CurvedLoop";
 
 export default function Home() {
   return (
-    <main className={styles.page}>
+    <main className={styles.main}>
       <div className={styles.bg}>
         <LiquidEtherBg
           colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
@@ -28,43 +26,19 @@ export default function Home() {
           autoRampDuration={0.6}
         />
       </div>
-
-      <div className={styles.centerWrap}>
-        <motion.div
-          initial={{ opacity: 0, scale: 1 }}
-          animate={{
-            opacity: 1,
-            scale: 1.5,
-            transition: { duration: 2 },
-          }}
-        >
-          <Shuffle
-            text="Paillart Amaury"
-            shuffleDirection="right"
-            duration={0.85}
-            animationMode="evenodd"
-            shuffleTimes={2}
-            ease="power3.out"
+      <HeaderSection />
+      <div className={styles.scrollFloatContainer}>
+        <div className={styles.scrollFloatContent}>
+          <ScrollFloat
+            animationDuration={1}
+            ease="back.inOut(2)"
+            scrollStart="center bottom+=50%"
+            scrollEnd="bottom bottom-=40%"
             stagger={0.03}
-            threshold={0.1}
-            triggerOnce={true}
-            triggerOnHover={false}
-            respectReducedMotion={true}
-            loop={false}
-            loopDelay={0}
-          />
-        </motion.div>
-      </div>
-
-      <div className={styles.curvedBottom}>
-        <CurvedLoop
-          marqueeText="Compétences ✦ Parcours ✦ Expertise ✦ Experience ✦"
-          speed={2}
-          curveAmount={400}
-          direction="right"
-          interactive
-          className={styles.customTextStyle}
-        />
+          >
+            Mon Histoire
+          </ScrollFloat>
+        </div>
       </div>
     </main>
   );

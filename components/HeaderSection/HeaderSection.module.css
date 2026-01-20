@@ -1,0 +1,36 @@
+.page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Press Start 2P', sans-serif;
+}
+
+.centerWrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.curvedBottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  scale: 0.5;
+
+  bottom: -150px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.curvedBottom > * {
+  width: 100%;
+}
+
+.customTextStyle {
+  font-family: 'Inter', sans-serif;
+}
