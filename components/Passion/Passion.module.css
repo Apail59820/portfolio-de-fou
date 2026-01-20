@@ -1,0 +1,14 @@
+.mainContainer {
+    position: relative;
+    display: flex;
+    width: 40%;
+    height: 100vh;
+    justify-content: left;
+    align-items: center;
+    margin-left: 10vw;
+}
+
+.text {
+    font-family: var(--font-roboto-flex);
+    font-size: 7rem !important;
+}

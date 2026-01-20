@@ -3,6 +3,7 @@ import ScrollFloat from "@/components/ScrollFloat/ScrollFloat";
 
 import styles from "./page.module.css";
 import LiquidEtherBg from "@/components/LiquidEtherBg/LiquidEtherBg";
+import Passion from "@/components/Passion/Passion";
 
 export default function Home() {
   return (
@@ -36,9 +37,12 @@ export default function Home() {
             scrollEnd="bottom bottom-=40%"
             stagger={0.03}
           >
-            Mon Histoire
+            A propos de moi
           </ScrollFloat>
         </div>
+      </div>
+      <div className={styles.passionContainer}>
+        <Passion/>
       </div>
     </main>
   );

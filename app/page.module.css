@@ -17,6 +17,12 @@
   overflow: hidden;
 }
 
+.passionContainer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
 .auroraBg {
   position: absolute;
   inset: 0;
