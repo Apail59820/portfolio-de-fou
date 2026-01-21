@@ -4,6 +4,7 @@ import ScrollFloat from "@/components/ScrollFloat/ScrollFloat";
 import styles from "./page.module.css";
 import LiquidEtherBg from "@/components/LiquidEtherBg/LiquidEtherBg";
 import Passion from "@/components/Passion/Passion";
+import ScrollReveal from "@/components/ScrollReveal/ScrollReveal";
 
 export default function Home() {
   return (
@@ -44,6 +45,19 @@ export default function Home() {
       <div className={styles.passionContainer}>
         <Passion/>
       </div>
+      <div className={styles.scrollRevealContainer}>
+        <ScrollReveal
+          baseOpacity={0.1}
+          enableBlur
+          baseRotation={5}
+          blurStrength={8}
+          textClassName={styles.scrollRevealText}
+        >
+          Je conçois des expériences web rapides,
+          propres, et mémorables.
+        </ScrollReveal>
+      </div>
+      <div className={styles.paddingShit}/>
     </main>
   );
 }
