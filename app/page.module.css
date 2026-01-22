@@ -45,7 +45,7 @@
   position: relative;
   z-index: 10;
 
-  height: 100vh;
+  height: 59vh;
   width: 70%;
 
   margin-left: 30em;
@@ -59,4 +59,87 @@
 
 .paddingShit {
   min-height: 100vh;
+}
+
+.scrambledText {
+  font-size: 2rem !important;
+}
+
+.cardSwapContainer {
+  position: relative;
+  height: 600px;
+}
+
+.cardSwapTextContainer {
+  position: relative;
+  width: 57%;
+  height: 75vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
+}
+
+.blurText {
+  font-size: 4rem !important;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: bold;
+}
+
+.skillCard {
+  padding: 0 !important;
+  overflow: hidden;
+  border-radius: 18px;
+  background: rgba(10, 10, 14, 0.8);
+  border: 1px solid rgba(138, 92, 255, 0.25);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.cardMedia {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  background: rgba(138, 92, 255, 0.06);
+  overflow: hidden;
+}
+
+.cardMedia::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+          linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(0,0,0,0.85) 100%),
+          radial-gradient(circle at 30% 20%, rgba(138, 92, 255, 0.22), rgba(0,0,0,0) 55%);
+  pointer-events: none;
+}
+
+.cardImage {
+  object-fit: cover;
+  transform: scale(1.03);
+  filter: saturate(1.12) contrast(1.05);
+}
+
+.cardContent {
+  padding: 20px 22px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cardTitle {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.cardDesc {
+  opacity: 0.85;
+  font-size: 1rem;
+  line-height: 1.45;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* limite à 3 lignes (propre) */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

@@ -6,12 +6,12 @@ import Lenis from "lenis";
 export default function LenisProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.1,
+      duration: 1.6,
       smoothWheel: true,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       smoothTouch: false,
-      wheelMultiplier: 1.0,
+      wheelMultiplier: 0.5,
     });
 
     let rafId: number;
