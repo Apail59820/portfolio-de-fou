@@ -1,10 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useCallback } from "react";
+import { useEffect, useMemo, useRef, useCallback, useState } from "react";
 import { useGesture } from "@use-gesture/react";
 import "./DomeGallery.css";
 
-type ImageItem = string | { src: string; alt?: string };
+type ImageItem =
+  | string
+  | {
+      src: string;
+      alt?: string;
+      title?: string;
+      description?: string;
+      stack?: string[];
+      meta?: string[];
+    };
 
 type DomeGalleryProps = {
   images?: ImageItem[];
@@ -29,6 +38,10 @@ type DomeGalleryProps = {
 type ItemDef = {
   src: string;
   alt: string;
+  title?: string;
+  description?: string;
+  stack?: string[];
+  meta?: string[];
   x: number;
   y: number;
   sizeX: number;
@@ -110,7 +123,14 @@ function buildItems(pool: ImageItem[], seg: number): ItemDef[] {
     if (typeof image === "string") {
       return { src: image, alt: "" };
     }
-    return { src: image.src || "", alt: image.alt || "" };
+    return {
+      src: image.src || "",
+      alt: image.alt || "",
+      title: image.title,
+      description: image.description,
+      stack: image.stack,
+      meta: image.meta,
+    };
   });
 
   const usedImages = Array.from(
@@ -133,8 +153,7 @@ function buildItems(pool: ImageItem[], seg: number): ItemDef[] {
 
   return coords.map((c, i) => ({
     ...c,
-    src: usedImages[i].src,
-    alt: usedImages[i].alt,
+    ...usedImages[i],
   }));
 }
 
@@ -196,6 +215,8 @@ export default function DomeGallery({
   const lastDragEndAt = useRef(0);
 
   const scrollLockedRef = useRef(false);
+  const [activeItem, setActiveItem] = useState<ItemDef | null>(null);
+  const [infoVisible, setInfoVisible] = useState(false);
   const lockScroll = useCallback(() => {
     if (scrollLockedRef.current) return;
     scrollLockedRef.current = true;
@@ -445,7 +466,7 @@ export default function DomeGallery({
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const openItemFromElement = useCallback((el: HTMLElement) => {
+  const openItemFromElement = useCallback((el: HTMLElement, item: ItemDef) => {
     if (openingRef.current) return;
     openingRef.current = true;
     openStartedAtRef.current = performance.now();
@@ -492,8 +513,12 @@ export default function DomeGallery({
       focusedElRef.current = null;
       parent.removeChild(refDiv);
       unlockScroll();
+      setInfoVisible(false);
       return;
     }
+
+    setActiveItem(item);
+    setInfoVisible(false);
 
     originalTilePositionRef.current = {
       left: tileR.left,
@@ -542,6 +567,7 @@ export default function DomeGallery({
       overlay.style.opacity = "1";
       overlay.style.transform = "translate(0px, 0px) scale(1, 1)";
       rootRef.current?.setAttribute("data-enlarging", "true");
+      setInfoVisible(true);
     }, 16);
 
     const wantsResize = openedImageWidth || openedImageHeight;
@@ -582,27 +608,30 @@ export default function DomeGallery({
     }
   });
 
-  const onTileClick = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
+  const attemptOpen = useCallback(
+    (el: HTMLElement, item: ItemDef) => {
       if (draggingRef.current) return;
       if (movedRef.current) return;
       if (performance.now() - lastDragEndAt.current < 80) return;
       if (openingRef.current) return;
-      openItemFromElement(e.currentTarget);
+      openItemFromElement(el, item);
     },
     [openItemFromElement],
   );
 
-  const onTilePointerUp = useCallback(
-    (e: React.PointerEvent<HTMLDivElement>) => {
-      if (e.pointerType !== "touch") return;
-      if (draggingRef.current) return;
-      if (movedRef.current) return;
-      if (performance.now() - lastDragEndAt.current < 80) return;
-      if (openingRef.current) return;
-      openItemFromElement(e.currentTarget);
+  const onTileClick = useCallback(
+    (item: ItemDef) => (e: React.MouseEvent<HTMLDivElement>) => {
+      attemptOpen(e.currentTarget, item);
     },
-    [openItemFromElement],
+    [attemptOpen],
+  );
+
+  const onTilePointerUp = useCallback(
+    (item: ItemDef) => (e: React.PointerEvent<HTMLDivElement>) => {
+      if (e.pointerType !== "touch") return;
+      attemptOpen(e.currentTarget, item);
+    },
+    [attemptOpen],
   );
 
   useEffect(() => {
@@ -634,6 +663,7 @@ export default function DomeGallery({
         (el.style as unknown as { zIndex: number }).zIndex = 0;
         focusedElRef.current = null;
         rootRef.current?.removeAttribute("data-enlarging");
+        setInfoVisible(false);
         openingRef.current = false;
         unlockScroll();
         return;
@@ -711,6 +741,7 @@ export default function DomeGallery({
           (el.style as unknown as { zIndex: number }).zIndex = 0;
           focusedElRef.current = null;
           rootRef.current?.removeAttribute("data-enlarging");
+          setInfoVisible(false);
 
           requestAnimationFrame(() => {
             parent.style.transition = "";
@@ -798,8 +829,8 @@ export default function DomeGallery({
                   role="button"
                   tabIndex={0}
                   aria-label={it.alt || "Open image"}
-                  onClick={onTileClick}
-                  onPointerUp={onTilePointerUp}
+                  onClick={onTileClick(it)}
+                  onPointerUp={onTilePointerUp(it)}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={it.src} draggable={false} alt={it.alt} />
@@ -817,6 +848,44 @@ export default function DomeGallery({
         <div className="viewer" ref={viewerRef}>
           <div ref={scrimRef} className="scrim" />
           <div ref={frameRef} className="frame" />
+          {activeItem && (
+            <div
+              className="viewer__info"
+              data-visible={infoVisible ? "true" : "false"}
+              aria-hidden={!infoVisible}
+            >
+              <div className="viewer__info-card">
+                <p className="viewer__info-kicker">Projet</p>
+                <h3 className="viewer__info-title">
+                  {activeItem.title || activeItem.alt || "Projet"}
+                </h3>
+                {activeItem.description && (
+                  <p className="viewer__info-desc">
+                    {activeItem.description}
+                  </p>
+                )}
+                {activeItem.stack && activeItem.stack.length > 0 && (
+                  <div className="viewer__info-stack">
+                    {activeItem.stack.map((entry, index) => (
+                      <span
+                        className="viewer__info-chip"
+                        key={`${entry}-${index}`}
+                      >
+                        {entry}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {activeItem.meta && activeItem.meta.length > 0 && (
+                  <div className="viewer__info-meta">
+                    {activeItem.meta.map((entry, index) => (
+                      <span key={`${entry}-${index}`}>{entry}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </div>
