@@ -120,3 +120,80 @@
   transform-origin: bottom;
   transition: all 0.3s ease-in-out;
 }
+
+.folder__label-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  display: flex;
+  justify-content: center;
+  z-index: 4;
+  pointer-events: none;
+  padding: 0 8px;
+  transform: translateY(40%);
+}
+
+.folder__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(255, 255, 255, 0.6)
+    ),
+    linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.25),
+      rgba(0, 0, 0, 0.12)
+    );
+  color: var(--label-color);
+  font-family: var(--font-pressStart2p), "Press Start 2P", monospace;
+  font-size: 0.36rem;
+  letter-spacing: 0.07em;
+  line-height: 1;
+  text-transform: lowercase;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow:
+    0 14px 24px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  pointer-events: none;
+  backdrop-filter: blur(6px);
+  box-sizing: border-box;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.folder__label--compact {
+  font-size: 0.32rem;
+  letter-spacing: 0.05em;
+  padding: 6px 10px;
+}
+
+.folder__label--tight {
+  font-size: 0.28rem;
+  letter-spacing: 0.04em;
+  padding: 6px 9px;
+  transform: scaleX(0.97);
+}
+
+.folder__label-part {
+  display: inline-block;
+}
+
+.folder__label-dot {
+  display: inline-block;
+  color: var(--folder-color);
+  margin: 0 2px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.28);
+}
+
+.folder__label-part,
+.folder__label-dot {
+  line-height: 1;
+}

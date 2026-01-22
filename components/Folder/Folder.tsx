@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from "react";
 import "./Folder.css";
 
@@ -5,6 +7,7 @@ interface FolderProps {
   color?: string;
   size?: number;
   items?: React.ReactNode[];
+  label?: string;
   className?: string;
 }
 
@@ -33,6 +36,7 @@ const Folder: React.FC<FolderProps> = ({
   color = "#5227FF",
   size = 1,
   items = [],
+  label,
   className = "",
 }) => {
   const maxItems = 3;
@@ -47,6 +51,7 @@ const Folder: React.FC<FolderProps> = ({
   );
 
   const folderBackColor = darkenColor(color, 0.08);
+  const labelColor = darkenColor(color, 0.35);
   const paper1 = darkenColor("#ffffff", 0.1);
   const paper2 = darkenColor("#ffffff", 0.05);
   const paper3 = "#ffffff";
@@ -89,6 +94,7 @@ const Folder: React.FC<FolderProps> = ({
   const folderStyle: React.CSSProperties = {
     "--folder-color": color,
     "--folder-back-color": folderBackColor,
+    "--label-color": labelColor,
     "--paper-1": paper1,
     "--paper-2": paper2,
     "--paper-3": paper3,
@@ -96,6 +102,29 @@ const Folder: React.FC<FolderProps> = ({
 
   const folderClassName = `folder ${open ? "open" : ""}`.trim();
   const scaleStyle = { transform: `scale(${size})` };
+  const renderLabel = (value: string) => {
+    const parts = value.split(".");
+    const trimmed = value.trim();
+    const isCompact = trimmed.length > 9;
+    const isTight = trimmed.length > 12;
+    const labelClassName = [
+      "folder__label",
+      isCompact ? "folder__label--compact" : "",
+      isTight ? "folder__label--tight" : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+    return (
+      <span className={labelClassName}>
+        {parts.map((part, index) => (
+          <React.Fragment key={`${part}-${index}`}>
+            {index > 0 && <span className="folder__label-dot">.</span>}
+            <span className="folder__label-part">{part}</span>
+          </React.Fragment>
+        ))}
+      </span>
+    );
+  };
 
   return (
     <div style={scaleStyle} className={className}>
@@ -120,9 +149,12 @@ const Folder: React.FC<FolderProps> = ({
                   : {}
               }
             >
-              {item}
+              {typeof item === "string" ? renderLabel(item) : item}
             </div>
           ))}
+          {label ? (
+            <div className="folder__label-wrap">{renderLabel(label)}</div>
+          ) : null}
           <div className="folder__front"></div>
           <div className="folder__front right"></div>
         </div>
