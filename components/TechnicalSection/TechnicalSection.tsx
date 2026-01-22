@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { motion, useInView } from "framer-motion";
+import { cubicBezier, motion, useInView, type Variants } from "framer-motion";
 
 import SectionTitle from "@/app/_components/SectionTitle";
 import Folder from "@/components/Folder/Folder";
@@ -34,7 +34,9 @@ export default function TechnicalSection() {
     once: true,
   });
 
-  const itemVariants = {
+  const easeOutCubic = cubicBezier(0.22, 1, 0.36, 1);
+
+  const itemVariants: Variants = {
     hidden: {
       opacity: 0,
       y: 90,
@@ -50,13 +52,13 @@ export default function TechnicalSection() {
       filter: "blur(0px)",
       transition: {
         duration: 0.95,
-        ease: [0.22, 1, 0.36, 1],
+        ease: easeOutCubic,
         delay: index * 0.2,
       },
     }),
   };
 
-  const splitContainerVariants = {
+  const splitContainerVariants: Variants = {
     hidden: {},
     visible: {
       transition: {
@@ -65,7 +67,7 @@ export default function TechnicalSection() {
     },
   };
 
-  const splitItemVariants = {
+  const splitItemVariants: Variants = {
     hidden: {
       opacity: 0,
       y: 60,
@@ -79,12 +81,12 @@ export default function TechnicalSection() {
       filter: "blur(0px)",
       transition: {
         duration: 0.9,
-        ease: [0.22, 1, 0.36, 1],
+        ease: easeOutCubic,
       },
     },
   };
 
-  const contentVariants = {
+  const contentVariants: Variants = {
     hidden: {},
     visible: {
       transition: {
@@ -94,7 +96,7 @@ export default function TechnicalSection() {
     },
   };
 
-  const contentItemVariants = {
+  const contentItemVariants: Variants = {
     hidden: {
       opacity: 0,
       y: 24,
@@ -106,12 +108,12 @@ export default function TechnicalSection() {
       filter: "blur(0px)",
       transition: {
         duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
+        ease: easeOutCubic,
       },
     },
   };
 
-  const pillsContainerVariants = {
+  const pillsContainerVariants: Variants = {
     hidden: {
       opacity: 0,
       y: 24,
@@ -121,14 +123,14 @@ export default function TechnicalSection() {
       y: 0,
       transition: {
         duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
+        ease: easeOutCubic,
         staggerChildren: 0.08,
         delayChildren: 0.15,
       },
     },
   };
 
-  const pillVariants = {
+  const pillVariants: Variants = {
     hidden: {
       opacity: 0,
       y: 18,
@@ -140,7 +142,7 @@ export default function TechnicalSection() {
       scale: 1,
       transition: {
         duration: 0.55,
-        ease: [0.22, 1, 0.36, 1],
+        ease: easeOutCubic,
       },
     },
   };

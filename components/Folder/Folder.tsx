@@ -62,7 +62,9 @@ const Folder: React.FC<FolderProps> = ({
   const content = items.length ? items : cardNodes;
   const papers = content.slice(0, maxItems);
   while (papers.length < maxItems) {
-    papers.push(null);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    papers.push(null as React.ReactNode as React["JSX.Element"]);
   }
 
   const [open, setOpen] = useState(false);
