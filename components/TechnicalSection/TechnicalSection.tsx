@@ -49,7 +49,25 @@ export default function TechnicalSection() {
           custom={0}
         >
           <div className={styles.folderFloat}>
-            <Folder size={3} color="#9B7BFF" label="core.frontend" />
+            <Folder
+              size={3}
+              color="#9B7BFF"
+              label="core.frontend"
+              cards={[
+                {
+                  title: "JavaScript (ES6+)",
+                  icon: <img src={'/icons/js.svg'}/>
+                },
+                {
+                  title: "TypeScript",
+                  icon: <img src={'/icons/typescript.png'}/>
+                },
+                {
+                  title: "React",
+                  icon: <img src={'/icons/react.svg'}/>
+                },
+              ]}
+            />
           </div>
         </motion.div>
         <motion.div
@@ -60,7 +78,25 @@ export default function TechnicalSection() {
           custom={1}
         >
           <div className={styles.folderFloat}>
-            <Folder size={3} color="#FFB36B" label="web.next" />
+            <Folder
+              size={3}
+              color="#FFB36B"
+              label="web.next"
+              cards={[
+                {
+                  title: "Next.js",
+                  icon: <img src={'/icons/nextjs.webp'}/>
+                },
+                {
+                  title: "API REST / GraphQL",
+                  icon: <img src={'/icons/api.png'}/>
+                },
+                {
+                  title: "Auth & securite basics",
+                  icon: <img src={'/icons/auth.png'}/>
+                },
+              ]}
+            />
           </div>
         </motion.div>
         <motion.div
@@ -71,7 +107,25 @@ export default function TechnicalSection() {
           custom={2}
         >
           <div className={styles.folderFloat}>
-            <Folder size={3} color="#72E4C7" label="quality.ship" />
+            <Folder
+              size={3}
+              color="#72E4C7"
+              label="quality.ship"
+              cards={[
+                {
+                  title: "Animations UI",
+                  icon: <img src={'/icons/motion.webp'}/>
+                },
+                {
+                  title: "Performance",
+                  icon: <img src={'/icons/perfs.png'}/>
+                },
+                {
+                  title: "Git & workflow",
+                  icon: <img src={'/icons/git.png'}/>
+                },
+              ]}
+            />
           </div>
         </motion.div>
       </div>

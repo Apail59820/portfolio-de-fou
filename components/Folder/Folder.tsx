@@ -8,7 +8,14 @@ interface FolderProps {
   size?: number;
   items?: React.ReactNode[];
   label?: string;
+  cards?: FolderCard[];
   className?: string;
+}
+
+export interface FolderCard {
+  title: string;
+  description?: string;
+  icon?: React.ReactNode;
 }
 
 const darkenColor = (hex: string, percent: number): string => {
@@ -37,10 +44,23 @@ const Folder: React.FC<FolderProps> = ({
   size = 1,
   items = [],
   label,
+  cards = [],
   className = "",
 }) => {
   const maxItems = 3;
-  const papers = items.slice(0, maxItems);
+  const cardNodes = cards.map((card, index) => (
+    <div className="folder__card" key={`${card.title}-${index}`}>
+      {card.icon ? (
+        <span className="folder__card-icon">{card.icon}</span>
+      ) : null}
+      <div className="folder__card-title">{card.title}</div>
+      {card.description ? (
+        <div className="folder__card-desc">{card.description}</div>
+      ) : null}
+    </div>
+  ));
+  const content = items.length ? items : cardNodes;
+  const papers = content.slice(0, maxItems);
   while (papers.length < maxItems) {
     papers.push(null);
   }
