@@ -195,15 +195,36 @@ export default function TechnicalSection() {
               cards={[
                 {
                   title: "JavaScript (ES6+)",
-                  icon: <img src={'/icons/js.svg'}/>
+                  icon: (
+                    <Image
+                      src="/icons/js.svg"
+                      alt="JavaScript logo"
+                      width={14}
+                      height={14}
+                    />
+                  ),
                 },
                 {
                   title: "TypeScript",
-                  icon: <img src={'/icons/typescript.png'}/>
+                  icon: (
+                    <Image
+                      src="/icons/typescript.png"
+                      alt="TypeScript logo"
+                      width={14}
+                      height={14}
+                    />
+                  ),
                 },
                 {
                   title: "React",
-                  icon: <img src={'/icons/react.svg'}/>
+                  icon: (
+                    <Image
+                      src="/icons/react.svg"
+                      alt="React logo"
+                      width={14}
+                      height={14}
+                    />
+                  ),
                 },
               ]}
             />
@@ -224,15 +245,36 @@ export default function TechnicalSection() {
               cards={[
                 {
                   title: "Next.js",
-                  icon: <img src={'/icons/nextjs.webp'}/>
+                  icon: (
+                    <Image
+                      src="/icons/nextjs.webp"
+                      alt="Next.js logo"
+                      width={14}
+                      height={14}
+                    />
+                  ),
                 },
                 {
                   title: "API REST / GraphQL",
-                  icon: <img src={'/icons/api.png'}/>
+                  icon: (
+                    <Image
+                      src="/icons/api.png"
+                      alt="API icon"
+                      width={14}
+                      height={14}
+                    />
+                  ),
                 },
                 {
                   title: "Auth & securite basics",
-                  icon: <img src={'/icons/auth.png'}/>
+                  icon: (
+                    <Image
+                      src="/icons/auth.png"
+                      alt="Authentication icon"
+                      width={14}
+                      height={14}
+                    />
+                  ),
                 },
               ]}
             />
@@ -253,15 +295,36 @@ export default function TechnicalSection() {
               cards={[
                 {
                   title: "Animations UI",
-                  icon: <img src={'/icons/motion.webp'}/>
+                  icon: (
+                    <Image
+                      src="/icons/motion.webp"
+                      alt="Animation icon"
+                      width={14}
+                      height={14}
+                    />
+                  ),
                 },
                 {
                   title: "Performance",
-                  icon: <img src={'/icons/perfs.png'}/>
+                  icon: (
+                    <Image
+                      src="/icons/perfs.png"
+                      alt="Performance icon"
+                      width={14}
+                      height={14}
+                    />
+                  ),
                 },
                 {
                   title: "Git & workflow",
-                  icon: <img src={'/icons/git.png'}/>
+                  icon: (
+                    <Image
+                      src="/icons/git.png"
+                      alt="Git logo"
+                      width={14}
+                      height={14}
+                    />
+                  ),
                 },
               ]}
             />
@@ -298,8 +361,8 @@ export default function TechnicalSection() {
               variants={contentItemVariants}
             >
               De la conception à la mise en production, je construis des
-              expériences web rapides, maintenables et orientées produit. J'accorde
-              une attention particulière à l'UX, la performance et l'architecture
+              expériences web rapides, maintenables et orientées produit. J&apos;accorde
+              une attention particulière à l&apos;UX, la performance et l&apos;architecture
               pour livrer un produit solide.
             </motion.p>
             <motion.ul
@@ -349,7 +412,7 @@ export default function TechnicalSection() {
               variants={contentItemVariants}
             >
               Je conçois des applications desktop performantes, robustes et
-              maintenables. J'aime l'optimisation bas niveau, la logique métier
+              maintenables. J&apos;aime l&apos;optimisation bas niveau, la logique métier
               claire et les architectures qui tiennent dans le temps.
             </motion.p>
             <motion.ul
@@ -400,7 +463,7 @@ export default function TechnicalSection() {
             >
               Je mets en place des environnements fiables, reproductibles et
               scalables. Automatisation, observabilite et pipeline de livraison
-              sont au coeur d'une mise en production sereine.
+              sont au coeur d&apos;une mise en production sereine.
             </motion.p>
             <motion.ul
               className={styles.webPills}
