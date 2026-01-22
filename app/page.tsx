@@ -4,6 +4,7 @@ import SkillsSection from "./_components/SkillsSection";
 
 import styles from "./page.module.css";
 import ProjectsSection from "@/components/ProjectsSection/ProjectsSection";
+import TechnicalSection from "@/components/TechnicalSection/TechnicalSection";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <AboutSection />
       <SkillsSection />
       <ProjectsSection />
+      <TechnicalSection/>
       <div className={styles.paddingShit}></div>
     </main>
   );
