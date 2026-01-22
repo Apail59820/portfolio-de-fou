@@ -21,8 +21,9 @@
   font-size: 7rem !important;
 
   text-shadow:
-    0 0 18px rgba(255, 159, 252, 0.25),
-    0 0 50px rgba(82, 39, 255, 0.18);
+    0 0 18px rgba(var(--accent-amber-rgb), 0.22),
+    0 0 50px rgba(var(--accent-violet-rgb), 0.2);
+  color: var(--text);
 }
 
 .shine {
@@ -33,7 +34,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.28),
+    rgba(var(--accent-amber-rgb), 0.28),
     transparent
   );
   transform: skewX(-18deg);

@@ -64,9 +64,14 @@ interface VariableProximityProps extends HTMLAttributes<HTMLSpanElement> {
   radius?: number;
   falloff?: "linear" | "exponential" | "gaussian";
   className?: string;
+  highlightWords?: string[];
+  highlightClassName?: string;
   onClick?: () => void;
   style?: React.CSSProperties;
 }
+
+const normalizeWord = (value: string) =>
+  value.toLowerCase().replace(/[^\p{L}\p{N}'-]+/gu, "");
 
 const VariableProximity = forwardRef<HTMLSpanElement, VariableProximityProps>(
   (props, ref) => {
@@ -78,6 +83,8 @@ const VariableProximity = forwardRef<HTMLSpanElement, VariableProximityProps>(
       radius = 50,
       falloff = "linear",
       className = "",
+      highlightWords,
+      highlightClassName = "",
       onClick,
       style,
       ...restProps
@@ -112,6 +119,11 @@ const VariableProximity = forwardRef<HTMLSpanElement, VariableProximityProps>(
         toValue: toSettings.get(axis) ?? fromValue,
       }));
     }, [fromFontVariationSettings, toFontVariationSettings]);
+
+    const highlightSet = useMemo(() => {
+      if (!highlightWords?.length) return null;
+      return new Set(highlightWords.map(normalizeWord));
+    }, [highlightWords]);
 
     const calculateDistance = (
       x1: number,
@@ -186,35 +198,42 @@ const VariableProximity = forwardRef<HTMLSpanElement, VariableProximityProps>(
         style={{ display: "inline", ...style }}
         {...restProps}
       >
-        {words.map((word, wordIndex) => (
-          <span
-            key={wordIndex}
-            style={{ display: "inline-block", whiteSpace: "nowrap" }}
-          >
-            {word.split("").map((letter) => {
-              const currentLetterIndex = letterIndex++;
-              return (
-                <motion.span
-                  key={currentLetterIndex}
-                  ref={(el) => {
-                    letterRefs.current[currentLetterIndex] = el;
-                  }}
-                  style={{
-                    display: "inline-block",
-                    fontVariationSettings:
-                      interpolatedSettingsRef.current[currentLetterIndex],
-                  }}
-                  aria-hidden="true"
-                >
-                  {letter}
-                </motion.span>
-              );
-            })}
-            {wordIndex < words.length - 1 && (
-              <span style={{ display: "inline-block" }}>&nbsp;</span>
-            )}
-          </span>
-        ))}
+        {words.map((word, wordIndex) => {
+          const shouldHighlight =
+            highlightSet &&
+            highlightClassName &&
+            highlightSet.has(normalizeWord(word));
+          return (
+            <span
+              key={wordIndex}
+              style={{ display: "inline-block", whiteSpace: "nowrap" }}
+            >
+              {word.split("").map((letter) => {
+                const currentLetterIndex = letterIndex++;
+                return (
+                  <motion.span
+                    key={currentLetterIndex}
+                    ref={(el) => {
+                      letterRefs.current[currentLetterIndex] = el;
+                    }}
+                    className={shouldHighlight ? highlightClassName : undefined}
+                    style={{
+                      display: "inline-block",
+                      fontVariationSettings:
+                        interpolatedSettingsRef.current[currentLetterIndex],
+                    }}
+                    aria-hidden="true"
+                  >
+                    {letter}
+                  </motion.span>
+                );
+              })}
+              {wordIndex < words.length - 1 && (
+                <span style={{ display: "inline-block" }}>&nbsp;</span>
+              )}
+            </span>
+          );
+        })}
         <span className="sr-only">{label}</span>
       </span>
     );

@@ -16,8 +16,13 @@ export interface ScrambledTextProps {
   scrambleChars?: string;
   className?: string;
   style?: React.CSSProperties;
+  highlightWords?: string[];
+  highlightClassName?: string;
   children: React.ReactNode;
 }
+
+const normalizeWord = (value: string) =>
+  value.toLowerCase().replace(/[^\p{L}\p{N}'-]+/gu, "");
 
 const ScrambledText: React.FC<ScrambledTextProps> = ({
   radius = 100,
@@ -26,6 +31,8 @@ const ScrambledText: React.FC<ScrambledTextProps> = ({
   scrambleChars = ".:",
   className = "",
   style = {},
+  highlightWords,
+  highlightClassName = "",
   children,
 }) => {
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -35,10 +42,27 @@ const ScrambledText: React.FC<ScrambledTextProps> = ({
     if (!rootRef.current) return;
 
     const split = SplitText.create(rootRef.current.querySelector("p"), {
-      type: "chars",
+      type: "words,chars",
+      wordsClass: "word",
       charsClass: "char",
     });
     charsRef.current = split.chars as HTMLElement[];
+
+    const highlightSet =
+      highlightWords && highlightWords.length
+        ? new Set(highlightWords.map(normalizeWord))
+        : null;
+
+    if (highlightSet && split.words && highlightClassName) {
+      (split.words as HTMLElement[]).forEach((wordEl) => {
+        const normalized = normalizeWord(wordEl.textContent || "");
+        if (!normalized || !highlightSet.has(normalized)) return;
+        const chars = wordEl.querySelectorAll<HTMLElement>(".char");
+        chars.forEach((charEl) => {
+          charEl.classList.add(highlightClassName);
+        });
+      });
+    }
 
     charsRef.current.forEach((c) => {
       gsap.set(c, {
@@ -76,7 +100,14 @@ const ScrambledText: React.FC<ScrambledTextProps> = ({
       el.removeEventListener("pointermove", handleMove);
       split.revert();
     };
-  }, [radius, duration, speed, scrambleChars]);
+  }, [
+    radius,
+    duration,
+    speed,
+    scrambleChars,
+    highlightWords,
+    highlightClassName,
+  ]);
 
   return (
     <div ref={rootRef} className={`text-block ${className}`} style={style}>

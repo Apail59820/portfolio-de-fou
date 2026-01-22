@@ -5,7 +5,11 @@ import { useRef } from "react";
 import VariableProximity from "@/components/VariableProximity/VariableProximity";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
-export default function Passion() {
+type PassionProps = {
+  highlightClassName?: string;
+};
+
+export default function Passion({ highlightClassName = "" }: PassionProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const isInView = useInView(containerRef, {
@@ -59,6 +63,8 @@ export default function Passion() {
               className={styles.text}
               fromFontVariationSettings="'wght' 400"
               toFontVariationSettings="'wght' 1000"
+              highlightWords={["passionné", "10"]}
+              highlightClassName={highlightClassName}
               /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
               // @ts-expect-error
               containerRef={containerRef}

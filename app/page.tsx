@@ -31,7 +31,7 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.passionContainer}>
-        <Passion />
+        <Passion highlightClassName={styles.highlightWord} />
       </div>
       <div className={styles.scrollRevealContainer}>
         <ScrollReveal
@@ -40,6 +40,8 @@ export default function Home() {
           baseRotation={5}
           blurStrength={8}
           textClassName={styles.scrollRevealText}
+          highlightWords={["rapides", "propres", "mémorables"]}
+          highlightClassName={styles.highlightWord}
         >
           Je conçois des expériences web rapides, propres, et mémorables.
         </ScrollReveal>
@@ -72,6 +74,8 @@ export default function Home() {
             duration={1.2}
             speed={0.5}
             scrambleChars=".:"
+            highlightWords={["expérience", "détail"]}
+            highlightClassName={styles.highlightWord}
           >
             Je transforme une idée ou une maquette en expérience web propre,
             rapide et agréable à utiliser. Avec un vrai souci du détail.
@@ -95,11 +99,13 @@ export default function Home() {
             </div>
             <div className={styles.cardContent}>
               <h3 className={styles.cardTitle}>
-                UI modernes, lisibles, cohérentes
+                UI <span className={styles.highlightWord}>modernes</span>,
+                lisibles, cohérentes
               </h3>
               <p className={styles.cardDesc}>
                 Une interface claire, une hiérarchie nette, et des composants
-                cohérents pour une expérience fluide et premium.
+                cohérents pour une expérience fluide et{" "}
+                <span className={styles.highlightWord}>premium</span>.
               </p>
             </div>
           </Card>
@@ -116,10 +122,14 @@ export default function Home() {
             </div>
             <div className={styles.cardContent}>
               <h3 className={styles.cardTitle}>
-                Le mouvement au service du sens
+                Le{" "}
+                <span className={styles.highlightWord}>mouvement</span> au
+                service du sens
               </h3>
               <p className={styles.cardDesc}>
-                Chaque animation guide l’utilisateur,
+                Chaque{" "}
+                <span className={styles.highlightWord}>animation</span> guide
+                l’utilisateur,
                 renforce la compréhension et rend le produit plus agréable à utiliser.
               </p>
             </div>
@@ -137,11 +147,14 @@ export default function Home() {
             </div>
             <div className={styles.cardContent}>
               <h3 className={styles.cardTitle}>
-                Du propre, même sous pression
+                Du{" "}
+                <span className={styles.highlightWord}>propre</span>, même sous
+                pression
               </h3>
               <p className={styles.cardDesc}>
                 Je livre vite, mais je livre bien : une base solide,
-                une expérience fluide, et un code fait pour durer.
+                une expérience fluide, et un code{" "}
+                <span className={styles.highlightWord}>solide</span> pour durer.
               </p>
             </div>
           </Card>

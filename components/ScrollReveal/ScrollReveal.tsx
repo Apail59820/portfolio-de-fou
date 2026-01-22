@@ -16,9 +16,14 @@ interface ScrollRevealProps {
   blurStrength?: number;
   containerClassName?: string;
   textClassName?: string;
+  highlightWords?: string[];
+  highlightClassName?: string;
   rotationEnd?: string;
   wordAnimationEnd?: string;
 }
+
+const normalizeWord = (value: string) =>
+  value.toLowerCase().replace(/[^\p{L}\p{N}'-]+/gu, "");
 
 const ScrollReveal: React.FC<ScrollRevealProps> = ({
   children,
@@ -29,22 +34,34 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   blurStrength = 4,
   containerClassName = "",
   textClassName = "",
+  highlightWords,
+  highlightClassName = "",
   rotationEnd = "bottom bottom",
   wordAnimationEnd = "bottom bottom",
 }) => {
   const containerRef = useRef<HTMLHeadingElement>(null);
+  const highlightSet = useMemo(() => {
+    if (!highlightWords?.length) return null;
+    return new Set(highlightWords.map(normalizeWord));
+  }, [highlightWords]);
 
   const splitText = useMemo(() => {
     const text = typeof children === "string" ? children : "";
     return text.split(/(\s+)/).map((word, index) => {
       if (word.match(/^\s+$/)) return word;
+      const normalized = normalizeWord(word);
+      const isHighlighted =
+        highlightSet && normalized && highlightSet.has(normalized);
+      const className = isHighlighted
+        ? `word ${highlightClassName}`.trim()
+        : "word";
       return (
-        <span className="word" key={index}>
+        <span className={className} key={index}>
           {word}
         </span>
       );
     });
-  }, [children]);
+  }, [children, highlightSet, highlightClassName]);
 
   useEffect(() => {
     const el = containerRef.current;
