@@ -1,0 +1,8 @@
+.mainContainer {
+    margin-top: 20vh;
+}
+
+.galleryWrapper {
+    will-change: transform, opacity, filter;
+    transform-origin: center;
+}

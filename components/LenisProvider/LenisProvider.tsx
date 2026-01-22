@@ -11,7 +11,7 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       smoothTouch: false,
-      wheelMultiplier: 0.5,
+      wheelMultiplier: 0.2,
     });
 
     let rafId: number;
