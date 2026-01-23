@@ -212,7 +212,7 @@ export default function LookingForSection() {
           </motion.div>
 
           <motion.p className={styles.subline} variants={itemVariants}>
-            TJM 600€ / jour. Je préfère les missions courtes, mais je reste disponible pour les marathons.
+            TJM 508€ / jour. Je préfère les missions courtes, mais je reste disponible pour les marathons.
           </motion.p>
         </motion.div>
 
@@ -225,7 +225,7 @@ export default function LookingForSection() {
             <div ref={coreRef} className={styles.core}>
               <span className={styles.coreLabel}>TJM</span>
               <BlurText
-                text="600€"
+                text="508€"
                 className={styles.coreValue}
                 animateBy="letters"
                 delay={35}

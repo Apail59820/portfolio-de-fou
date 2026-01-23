@@ -7,6 +7,7 @@ import ProjectsSection from "@/components/ProjectsSection/ProjectsSection";
 import TechnicalSection from "@/components/TechnicalSection/TechnicalSection";
 import StudiesSection from "@/components/StudiesSection/StudiesSection";
 import LookingForSection from "@/components/LookingForSection/LookingForSection";
+import ContactSection from "@/components/ContactSection/ContactSection";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <TechnicalSection/>
       <StudiesSection />
       <LookingForSection/>
+      <ContactSection/>
       <div className={styles.paddingShit}></div>
     </main>
   );
