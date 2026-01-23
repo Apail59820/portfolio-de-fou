@@ -195,8 +195,7 @@ export default function StudiesSection() {
     <section className={styles.mainContainer}>
       <SectionTitle>Etudes & certifications</SectionTitle>
       <p className={styles.lead}>
-        Un parcours qui monte en puissance, avec des etapes qui se revelent au
-        fil du scroll.
+        Un parcours qui monte en puissance
       </p>
       <StudiesTimeline items={STUDIES} />
     </section>
