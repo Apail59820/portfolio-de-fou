@@ -9,27 +9,40 @@
 .mainContainer::before {
   content: "";
   position: absolute;
-  inset: -10vh 0 auto 0;
-  height: 120vh;
+  inset: 0;
   background:
     radial-gradient(
-      680px 520px at 12% 18%,
-      rgba(var(--accent-violet-rgb), 0.2),
-      transparent 65%
-    ),
-    radial-gradient(
-      620px 480px at 86% 22%,
-      rgba(var(--accent-amber-rgb), 0.16),
+      600px 420px at 10% 18%,
+      rgba(var(--accent-violet-rgb), 0.16),
       transparent 70%
     ),
     radial-gradient(
-      720px 600px at 64% 88%,
-      rgba(var(--accent-mint-rgb), 0.14),
+      580px 420px at 88% 20%,
+      rgba(var(--accent-amber-rgb), 0.12),
       transparent 70%
+    ),
+    radial-gradient(
+      720px 560px at 62% 86%,
+      rgba(var(--accent-mint-rgb), 0.12),
+      transparent 75%
     );
-  opacity: 0.9;
+  opacity: 0.7;
   pointer-events: none;
   z-index: 0;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    black 16%,
+    black 84%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    black 16%,
+    black 84%,
+    transparent 100%
+  );
 }
 
 .stage {
